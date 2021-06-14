@@ -9,6 +9,6 @@ PROJECT_DIR = os.path.abspath(
 
 
 def load_config() -> Dict[str, Any]:
-    filepath = os.path.join(PROJECT_DIR, "config.toml")
-    with open(filepath, "r") as f:
+    filepath = os.path.join(PROJECT_DIR, 'config.toml')
+    with open(filepath, 'r') as f:
         return toml.load(f)

@@ -9,10 +9,10 @@ import pandas as pd
 PROJECT_DIR = os.path.abspath(
     os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
 )
-RAW_DATA_DIR = os.path.join(PROJECT_DIR, "data/raw")
-PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, "data/processed")
-MODEL_DIR = os.path.join(PROJECT_DIR, "models")
-RESULT_DIR = os.path.join(PROJECT_DIR, "result")
+RAW_DATA_DIR = os.path.join(PROJECT_DIR, 'data/raw')
+PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, 'data/processed')
+MODEL_DIR = os.path.join(PROJECT_DIR, 'models')
+RESULT_DIR = os.path.join(PROJECT_DIR, 'result')
 
 
 class InvalidExtension(Exception):
@@ -23,12 +23,12 @@ def _check_filepath(ext):
     def _decorator(f):
         @functools.wraps(f)
         def _wrapper(*args, **kwargs):
-            filepath = kwargs.get("filepath")
+            filepath = kwargs.get('filepath')
             if not filepath:
                 filepath = args[1]
 
             if not filepath.endswith(ext):
-                raise InvalidExtension(f"{filepath} has invalid extension, want {ext}")
+                raise InvalidExtension(f'{filepath} has invalid extension, want {ext}')
 
             return f(*args, **kwargs)
 
@@ -43,38 +43,38 @@ class Store:
     model_dir = MODEL_DIR
     result_dir = RESULT_DIR
 
-    @_check_filepath(".csv")
+    @_check_filepath('.csv')
     def get_csv(self, filepath: str, **kwargs) -> pd.DataFrame:
         return pd.read_csv(filepath, **kwargs)
 
-    @_check_filepath(".csv")
+    @_check_filepath('.csv')
     def put_csv(self, filepath: str, df: pd.DataFrame, **kwargs) -> None:
         if not isinstance(df, pd.DataFrame):
-            raise TypeError(f"df must be of type pd.DataFrame, got {type(df)}")
+            raise TypeError(f'df must be of type pd.DataFrame, got {type(df)}')
         df.to_csv(filepath, index=False, **kwargs)
 
-    @_check_filepath(".pkl")
+    @_check_filepath('.pkl')
     def get_pkl(self, filepath: str) -> Any:
-        with open(filepath, "rb") as f:
+        with open(filepath, 'rb') as f:
             return pickle.load(f)
 
-    @_check_filepath(".pkl")
+    @_check_filepath('.pkl')
     def put_pkl(self, filepath: str, python_object: Any) -> None:
         if not python_object:
-            raise TypeError("python_object must be non-zero, non-empty, and not None")
-        with open(filepath, "wb") as f:
+            raise TypeError('python_object must be non-zero, non-empty, and not None')
+        with open(filepath, 'wb') as f:
             pickle.dump(python_object, f)
 
-    @_check_filepath(".json")
+    @_check_filepath('.json')
     def get_json(self, filepath: str) -> Dict:
-        with open(filepath, "r") as f:
+        with open(filepath, 'r') as f:
             return json.load(f)
 
-    @_check_filepath(".json")
+    @_check_filepath('.json')
     def put_json(self, filepath: str, dic: Dict) -> None:
         if not isinstance(dic, dict):
-            raise TypeError(f"dic must be of type dict, got {type(dic)}")
-        with open(filepath, "w") as f:
+            raise TypeError(f'dic must be of type dict, got {type(dic)}')
+        with open(filepath, 'w') as f:
             json.dump(dic, f)
 
 
