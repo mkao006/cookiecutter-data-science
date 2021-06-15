@@ -12,7 +12,7 @@ PROJECT_DIR = os.path.abspath(
 RAW_DATA_DIR = os.path.join(PROJECT_DIR, 'data/raw')
 PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, 'data/processed')
 MODEL_DIR = os.path.join(PROJECT_DIR, 'models')
-RESULT_DIR = os.path.join(PROJECT_DIR, 'result')
+RESULT_DIR = os.path.join(PROJECT_DIR, 'results')
 
 
 class InvalidExtension(Exception):

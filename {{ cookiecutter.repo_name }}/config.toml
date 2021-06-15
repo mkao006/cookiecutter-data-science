@@ -7,7 +7,6 @@ random_state=1
 
 [linear_regression]
 fit_intercept=true
-random_state=1
 
 [logistic_regression]
 penalty="l2"
