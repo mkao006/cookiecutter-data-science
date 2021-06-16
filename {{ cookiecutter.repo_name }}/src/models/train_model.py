@@ -1,6 +1,7 @@
 import logging
 from src.utils.store import PipelineStore
 from src.utils.config import load_config
+from src.models.metrics import compute_metrics_collection
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
@@ -28,15 +29,6 @@ def main():
     # train the model
     lm = LinearRegression(**config['linear_regression'])
     lm.fit(train_x, train_y)
-
-    def compute_metrics_collection(actual, prediction):
-        from sklearn.metrics import explained_variance_score
-        from sklearn.metrics import mean_squared_error
-
-        return {
-            'explained_variance_score': explained_variance_score(actual, prediction),
-            'mean_squared_error': mean_squared_error(actual, prediction)
-        }
 
     # assess performance
     train_metrics = compute_metrics_collection(train_y, lm.predict(train_x))
