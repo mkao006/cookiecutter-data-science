@@ -2,6 +2,7 @@
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
+from src.utils.store import PipelineStore
 
 
 def main():
@@ -10,6 +11,13 @@ def main():
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
+
+    # Get the data
+    store = PipelineStore()
+    raw_data = store.get_raw('car_price.csv')
+
+    # Save the processed data
+    store.put_processed('car_price_processed.csv', raw_data)
 
 
 if __name__ == '__main__':
